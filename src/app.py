@@ -33,6 +33,15 @@ def get_members():
     members = jackson_family.get_all_members()
     return jsonify(members), 200
 
+# Retrieve one member
+@app.route('/members/<int:id>', methods=['GET'])
+def get_one_member(id):
+    member = jackson_family.get_member(id)
+    if member:
+        return jsonify(member), 200
+    else:
+        return jsonify({"msg":"Member does not exist"}), 401
+
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
