@@ -34,16 +34,16 @@ def get_members():
     return jsonify(members), 200
 
 # Retrieve one member
-@app.route('/members/<int:id>', methods=['GET'])
+@app.route('/member/<int:id>', methods=['GET'])
 def get_one_member(id):
     member = jackson_family.get_member(id)
     if member:
         return jsonify(member), 200
     else:
-        return jsonify({"msg":"Member does not exist"}), 401
+        return jsonify({"msg":"Member does not exists"}), 401
 
 # Add new member
-@app.route('/members', methods=['POST'])
+@app.route('/member', methods=['POST'])
 def add_new_member():
     new_member = request.json
 
