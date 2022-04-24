@@ -42,6 +42,17 @@ def get_one_member(id):
     else:
         return jsonify({"msg":"Member does not exist"}), 401
 
+# Add new member
+@app.route('/members', methods=['POST'])
+def add_new_member():
+    new_member = request.json
+
+    if new_member:
+        jackson_family.add_member(new_member)
+        return jsonify({"msg":"New member added"}), 200
+    else:
+        return jsonify({"msg":"Failed to add new member"}), 400
+
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
