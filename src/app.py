@@ -53,6 +53,19 @@ def add_new_member():
     else:
         return jsonify({"msg":"Failed to add new member"}), 400
 
+#Delete one member  
+@app.route('/member/<int:id>', methods=['DELETE'])
+def delete_one_member(id):
+    member = jackson_family.delete_member(id)
+    if member:
+        print("Member deleted")
+        response = {
+            "done": True
+        }
+        return jsonify(response), 200
+    else:
+        return jsonify({"msg":"Member does not exists"}), 401
+
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
