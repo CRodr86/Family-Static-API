@@ -53,7 +53,7 @@ def add_new_member():
     else:
         return jsonify({"msg":"Failed to add new member"}), 400
 
-#Delete one member  
+# Delete one member  
 @app.route('/member/<int:id>', methods=['DELETE'])
 def delete_one_member(id):
     member = jackson_family.delete_member(id)
@@ -65,6 +65,15 @@ def delete_one_member(id):
         return jsonify(response), 200
     else:
         return jsonify({"msg":"Member does not exists"}), 401
+
+# Update member
+@app.route('/update-member/<int:id>', methods=['PUT'])
+def update_member(id):
+    member = request.json
+        if not member:
+        return jsonify({"msg":"Invalid member"}), 401
+    jackson_family.update_member(id, member)
+    return jsonify(member)
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
